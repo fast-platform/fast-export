@@ -1,8 +1,8 @@
 {
   "name": "formio-export",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Formio Export Tools",
-  "main": "/lib/formio-export.js",
+  "main": "lib/formio-export.js",
   "directories": {
     "lib": "lib",
     "test": "test"
@@ -38,15 +38,16 @@
     "chai": "^4.1.2",
     "eslint": "^4.19.1",
     "eslint-loader": "^2.0.0",
+    "jsdom": "^11.10.0",
     "jsdom-global": "^3.0.2",
     "mocha": "^5.1.1",
     "webpack": "^4.6.0",
+    "webpack-cli": "^2.1.2",
     "yargs": "^11.0.0"
   },
   "dependencies": {
     "formiojs": "^2.31.3",
     "js-html2pdf": "^1.0.0",
-    "lodash": "^4.17.10",
-    "native-promise-only": "^0.8.1"
+    "lodash": "^4.17.10"
   }
 }

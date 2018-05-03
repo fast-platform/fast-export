@@ -1,23 +1,22 @@
 /* global __dirname, require, module*/
 
-const webpack = require('webpack');
-const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 const path = require('path');
 const env = require('yargs').argv.env; // use --env with webpack 2
 const pkg = require('./package.json');
 
 let libraryName = pkg.name;
 
-let plugins = [], outputFile;
+let plugins = [], outputFile, minimize;
 
 if (env === 'build') {
-  plugins.push(new UglifyJsPlugin({ minimize: true }));
+  minimize = true;
   outputFile = libraryName + '.min.js';
 } else {
   outputFile = libraryName + '.js';
 }
 
 const config = {
+  mode: 'production',
   entry: __dirname + '/src/index.js',
   devtool: 'source-map',
   output: {
@@ -26,6 +25,9 @@ const config = {
     library: libraryName,
     libraryTarget: 'umd',
     umdNamedDefine: true
+  },
+  optimization: {
+    minimize: minimize
   },
   module: {
     rules: [
@@ -56,7 +58,8 @@ const config = {
       amd: '_',
       root: '_'
     },
-    formiojs: 'formiojs'
+    formiojs: 'formiojs',
+    html2pdf: 'js-html2pdf'
   }
 };
 

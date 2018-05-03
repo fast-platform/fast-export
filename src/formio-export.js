@@ -15,7 +15,7 @@ import {
  *
  * @class FormioExport
  */
-class FormioExport {
+export default class FormioExport {
 
   /**
    * Creates an instance of FormioExport.
@@ -219,6 +219,4 @@ class FormioExport {
       }
     });
   }
-}
-
-export default FormioExport;
+};
