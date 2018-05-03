@@ -99,10 +99,10 @@ export default class FormioExportUtils {
    *
    * @static
    * @param {Object} [obj={}] The object to check
-   * @returns {Boolean} Is valid Formio form
+   * @returns {Boolean} Is valid Formio wizard
    * @memberof FormioExportUtils
    */
-  static isFormioForm (obj = {}) {
+  static isFormioWizard (obj = {}) {
     return _.isPlainObject(obj) && _.isArray(obj.components) && obj.display === 'wizard';
   }
 
