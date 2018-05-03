@@ -31,6 +31,9 @@ let options = {
   data: data,
   formio: {
     // component specific configuration
+  },
+  config: {
+    // pdf export configuration
   }
 };
 
