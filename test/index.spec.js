@@ -9,21 +9,26 @@ chai.expect();
 const expect = chai.expect;
 
 let lib;
-let config = {
-  component: form,
-  submission: submission,
-  formio: {
 
-  }
-};
-
-describe('Given an instance of FormioExport library', () => {
+describe('Given an instance of FormioExport class', () => {
   before(() => {
-    lib = new FormioExport(null, null, config);
+    lib = new FormioExport(form, submission, {});
   });
-  describe('when I need the name', () => {
+  describe('when I need the constructor name', () => {
     it('should return the name', () => {
-      expect(lib.name).to.equal('FormioExport');
+      expect(lib.constructor.name).to.be.equal('FormioExport');
+    });
+  });
+
+  describe('when I need the formio component', () => {
+    it('should return the component', () => {
+      expect(lib.component.type).to.be.equal(form.type);
+    });
+  });
+
+  describe('when I need the formio component\'s data', () => {
+    it('should return the component\' data', () => {
+      expect(lib.data).to.be.equal(submission.data);
     });
   });
 });
