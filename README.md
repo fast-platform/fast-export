@@ -111,7 +111,7 @@ let submission = {
   }
 };
 
-let options: {
+let options = {
   ignoreLayout: true
 }
 
