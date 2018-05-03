@@ -50,19 +50,19 @@ export default class FormioExport {
       this.data = data;
     }
 
-    if (options.hasOwnProperty('submission')) {
-      this.data = options.submission.data;
+    if (FormioExportUtils.isFormioSubmission(this.data)) {
       this.options.submission = {
-        id: options.submission._id,
-        owner: options.submission.owner,
-        modified: options.submission.modified
+        id: this.data._id,
+        owner: this.data.owner,
+        modified: this.data.modified
       };
+      this.data = this.data.data;
     }
 
     if (this.component) {
-      if (component.hasOwnProperty('display')) {
-        component.type = 'form';
-        component.display = 'form';
+      if (FormioExportUtils.isFormioForm(this.component) || FormioExportUtils.isFormioWizard(this.component)) {
+        this.component.type = 'form';
+        this.component.display = 'form';
       }
       this.component = FormioComponent.create(component || this.component, this.data, this.options);
     } else if (!this.component) {
