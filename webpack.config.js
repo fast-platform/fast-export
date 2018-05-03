@@ -1,17 +1,18 @@
 /* global __dirname, require, module*/
-
+// const webpack = require('webpack');
 const path = require('path');
 const env = require('yargs').argv.env; // use --env with webpack 2
 const pkg = require('./package.json');
 
 let libraryName = pkg.name;
 
-let plugins = [], outputFile, minimize;
+let outputFile, minimize;
 
 if (env === 'build') {
   minimize = true;
   outputFile = libraryName + '.min.js';
 } else {
+  minimize = false;
   outputFile = libraryName + '.js';
 }
 
@@ -50,7 +51,6 @@ const config = {
       'formio-export': path.resolve(__dirname, 'src/')
     }
   },
-  plugins: plugins,
   externals: {
     lodash: {
       commonjs: 'lodash',
