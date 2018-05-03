@@ -77,7 +77,7 @@ class BaseComponent {
   }
 
   formatValue () {
-    if (_.isEmpty(this._value)) {
+    if (_.isNil(this._value)) {
       return this.emptyValue();
     }
     return this._value.toString();

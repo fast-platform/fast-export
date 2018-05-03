@@ -14,7 +14,7 @@ class SelectBoxesComponent extends BaseComponent {
   }
 
   formatValue (value) {
-    if (_.isEmpty(value)) {
+    if (_.isNil(value)) {
       return BaseComponent.emptyValue;
     }
     let item = _.find(this.values, (o) => {
@@ -25,7 +25,7 @@ class SelectBoxesComponent extends BaseComponent {
   }
 
   formatValues () {
-    if (_.isEmpty(this._value)) {
+    if (_.isNil(this._value)) {
       return [];
     }
     let values = [];

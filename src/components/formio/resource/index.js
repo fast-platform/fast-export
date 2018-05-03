@@ -9,7 +9,7 @@ class ResourceComponent extends SelectComponent {
   }
 
   formatValues () {
-    if (!this._value) {
+    if (_.isNil(this._value)) {
       return this.emptyValue();
     }
     let values = [];
@@ -21,7 +21,7 @@ class ResourceComponent extends SelectComponent {
   }
 
   formatValue (value) {
-    if (value === null) {
+    if (_.isNil(value)) {
       return this.emptyValue();
     }
     if (typeof value === 'object') {

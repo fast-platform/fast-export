@@ -8,7 +8,7 @@ class RadioComponent extends BaseComponent {
   }
 
   formatValue () {
-    if (this._value === null) {
+    if (_.isNil(this._value)) {
       return this.emptyValue();
     }
     let item = _.find(this.values, (o) => {

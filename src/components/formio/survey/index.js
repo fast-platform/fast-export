@@ -32,7 +32,7 @@ class SurveyComponent extends BaseComponent {
   }
 
   formatValues () {
-    if (_.isEmpty(this._value)) {
+    if (_.isNil(this._value)) {
       return this.emptyValue();
     }
     let values = [];

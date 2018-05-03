@@ -18,7 +18,7 @@ class SelectComponent extends BaseComponent {
   }
 
   formatValues () {
-    if (_.isEmpty(this._value)) {
+    if (_.isNil(this._value)) {
       return this.emptyValue();
     }
     let values = [];
@@ -30,7 +30,7 @@ class SelectComponent extends BaseComponent {
   }
 
   formatValue (value) {
-    if (_.isEmpty(value)) {
+    if (_.isNil(value)) {
       return this.emptyValue();
     }
     switch (this.dataSrc) {

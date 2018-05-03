@@ -1,4 +1,5 @@
 'use strict';
+import _ from 'lodash';
 import BaseComponent from '../base';
 
 class DayComponent extends BaseComponent {
@@ -7,7 +8,7 @@ class DayComponent extends BaseComponent {
   }
 
   formatValue () {
-    if (this._value === null) {
+    if (_.isNil(this._value)) {
       return this.emptyValue();
     }
     if (typeof this._value === 'string') {

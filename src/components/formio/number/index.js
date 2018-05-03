@@ -1,4 +1,5 @@
 'use strict';
+import _ from 'lodash';
 import BaseComponent from '../base';
 
 class NumberComponent extends BaseComponent {
@@ -7,8 +8,8 @@ class NumberComponent extends BaseComponent {
   }
 
   formatValue () {
-    if (this._value === null) {
-      return BaseComponent.emptyValue;
+    if (_.isNil(this._value)) {
+      return this.emptyValue();
     }
     return this._value.toLocaleString();
   }

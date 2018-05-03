@@ -1,4 +1,5 @@
 'use strict';
+import _ from 'lodash';
 import BaseComponent from '../base';
 
 class AddressComponent extends BaseComponent {
@@ -7,10 +8,10 @@ class AddressComponent extends BaseComponent {
   }
 
   formatValue () {
-    if (this._value === null) {
+    if (_.isNil(this._value)) {
       return this.emptyValue();
     }
-    return typeof this._value === 'object' ? this._value.formatted_address : this._value;
+    return _.isObject(this._value) ? this._value.formatted_address : this._value;
   }
 }
 
