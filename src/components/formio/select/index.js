@@ -1,0 +1,56 @@
+'use strict';
+import _ from 'lodash';
+import FormioUtils from 'formiojs/utils';
+import BaseComponent from '../base';
+import { toHtml } from './plugins';
+
+class SelectComponent extends BaseComponent {
+  constructor (component, data, options) {
+    super(component, data, options);
+
+    if (!this.multiple) {
+      this._value = [this._value];
+    }
+  }
+
+  toHtml (element) {
+    return toHtml(element, this);
+  }
+
+  formatValues () {
+    if (_.isEmpty(this._value)) {
+      return this.emptyValue();
+    }
+    let values = [];
+
+    _.forEach(this._value, (value) => {
+      values.push(this.formatValue(value));
+    });
+    return values;
+  }
+
+  formatValue (value) {
+    if (_.isEmpty(value)) {
+      return this.emptyValue();
+    }
+    switch (this.dataSrc) {
+      case 'url':
+        return value;
+      case 'custom':
+      case 'resource':
+        return FormioUtils.interpolate(this.template, { item: value }) || value;
+      case 'values':
+      case 'json':
+        let valueProperty = this.valueProperty || 'value';
+        let item = _.find(this.data[this.dataSrc], (o) => {
+          return o[valueProperty] === value;
+        });
+
+        return item ? FormioUtils.interpolate(this.template, { item: item }) : value;
+      default:
+        return value;
+    }
+  }
+}
+
+export default SelectComponent;
