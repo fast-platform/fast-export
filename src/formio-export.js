@@ -206,7 +206,7 @@ export default class FormioExport {
           formio: {
             type: Object
           },
-          xlsx: {
+          config: {
             type: Object
           }
         });
