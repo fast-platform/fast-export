@@ -47,7 +47,8 @@ let options = {
   component: component    // the formio component
   data: data              // the formio component's data or submission
   formio: {
-    ignoreLayout: true    // should html render respect formio layouts (columns, lables positions, etc)
+    ignoreLayout: true,   // should html render respect formio layouts (columns, lables positions, etc)
+    emptyValue: 'n/a'     // default empty value for rendered components
   }
 }
 ```
