@@ -36,8 +36,47 @@ FormioExport.toPdf(options).then((pdf) => {
   // do something
 })
 ```
+# Configuration
+
+The FormioExport instance can be initialized using the following configuration:
+
+```javascript
+let options = {
+  component: component    // the formio component
+  data: data              // the formio component's data or submission
+  formio: {
+    ignoreLayout: true    // should html render respect formio layouts (columns, lables positions, etc)
+  }
+}
+```
+
+The PDF export is also configurable using the following parameters:
+
+```javascript
+let config: {
+  download: false,      // should the pdf file be downloaded once rendered
+  filename: 'file.pdf', // the pdf file name
+  margin: 10,           // the pdf file margins
+  html2canvas: {
+    scale: 2,           // scale factor for rendering the canvas (overall resolution of the canvas image)
+    logging: false      // should console logging be enable during rendering
+  },
+  jsPDF: {
+    orientation: 'p',   // PDF orientation - potrait / landscape
+    unit: 'mm',         // measurement units used
+    format: 'a4'        // paper size - can also accept custom (i.e. A4 - [210, 297])
+  }
+}
+```
+
+To get more information on PDF file configuration please read the following documentation:
+
+* [html2canvas](http://html2canvas.hertzen.com/configuration) - Html to HTML canvas image library
+* [jsPDF](https://rawgit.com/MrRio/jsPDF/master/docs/jsPDF.html) - Client-sdie JavaScript PDF generator library
 
 # Simple Example
+
+Using the FormioExport instance:
 
 ```javascript
 import FormioExport from 'formio-export';
@@ -95,6 +134,16 @@ exporter.toPdf(config).then((pdf) => {
 })
 ```
 
+Using the FormioExport static methods
+
+```javascript
+let config = {
+  component: component,
+  data: submission,
+  config
+}
+```
+
 # Building
 
 Clone git repository:
@@ -126,8 +175,9 @@ npm run test
 
 ## Built With
 
-* [js-html2pdf](https://github.com/airarrazaval/html2pdf) - Html to Pdf javascript library
 * [formiojs](https://github.com/formio/formiojs) - Form.io JavaScript SDK
+* [js-html2pdf](https://github.com/airarrazaval/html2pdf) - Html to Pdf javascript library
+* [html2canvas]() - html2canvas
 
 ## Authors
 
@@ -135,4 +185,4 @@ npm run test
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
