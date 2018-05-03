@@ -2,6 +2,8 @@
 
 This library is a plain JavaScript export tool for Form.io componets.  This allows to export any Form.io component (with or without submission data) to PDF (other formats comming soon).
 
+* [Live Demo](https://formio-export-example.stackblitz.io)
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
@@ -155,7 +157,6 @@ git clone git@github.com:airarrazaval/formio-export.git
 Install dependencies:
 
 ```
-cd formio-export
 npm install
 ```
 
