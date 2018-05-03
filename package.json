@@ -1,6 +1,6 @@
 {
   "name": "formio-export",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Formio Export Tools",
   "main": "lib/formio-export.js",
   "directories": {
