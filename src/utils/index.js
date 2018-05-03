@@ -140,8 +140,8 @@ export default class FormioExportUtils {
     // check if HTML style is defined as object
     if (!!attributes.style && typeof attributes.style === 'object') {
       // transform the style object into string
-      attributes.style = Object.keys(attributes.style).map((key) => {
-        return `${key}:${attributes.style[key]}`;
+      attributes.style = _.map(attributes.style, (value, key) => {
+        return `${key}:${value}`;
       }).join(';');
     }
     // check if innerHTML is defined
