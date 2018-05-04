@@ -57,9 +57,7 @@ const config = {
       commonjs2: 'lodash',
       amd: '_',
       root: '_'
-    },
-    formiojs: 'formiojs',
-    html2pdf: 'js-html2pdf'
+    }
   }
 };
 
