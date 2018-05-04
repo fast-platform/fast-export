@@ -78,7 +78,7 @@ let config: {
 
 To get more information on PDF file configuration please read the following documentation:
 
-* [html2canvas](http://html2canvas.hertzen.com/configuration) - Html to HTML canvas image library
+* [html2canvas](http://html2canvas.hertzen.com/configuration) - JavaScript html to canvas renderer library
 * [jsPDF](https://rawgit.com/MrRio/jsPDF/master/docs/jsPDF.html) - Client-sdie JavaScript PDF generator library
 
 # Simple Example
@@ -181,9 +181,9 @@ npm run test
 
 ## Built With
 
-* [formiojs](https://github.com/formio/formiojs) - Form.io JavaScript SDK
 * [js-html2pdf](https://github.com/airarrazaval/html2pdf) - Html to Pdf javascript library
-* [html2canvas]() - html2canvas
+* [html2canvas](http://html2canvas.hertzen.com) - JavaScript html to canvas renderer library
+* [jsPDF](https://github.com/MrRio/jsPDF) - Client-sdie JavaScript PDF generator library
 
 ## Authors
 
