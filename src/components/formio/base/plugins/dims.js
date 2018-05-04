@@ -1,5 +1,3 @@
-'use strict';
-
 export default (component) => {
   let dims = {
     width: component._baseWidth,

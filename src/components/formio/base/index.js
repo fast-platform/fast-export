@@ -1,9 +1,6 @@
-'use strict';
 import _ from 'lodash';
-import FormioUtils from 'formiojs/utils';
-
+import FormioExportUtils from '../../../utils';
 import FormioComponent from '../';
-
 import { toHtml, getDimensions } from './plugins';
 
 class BaseComponent {
@@ -33,7 +30,7 @@ class BaseComponent {
     }
 
     if (_.isPlainObject(data)) {
-      this._value = FormioUtils.getValue({ data: data }, this.key);
+      this._value = FormioExportUtils.getValue({ data: data }, this.key);
       if (_.isNil(this._value) && !this.input) {
         this._value = _.cloneDeep(data);
       }

@@ -1,4 +1,3 @@
-'use strict';
 import _ from 'lodash';
 import BaseComponent from '../base';
 
@@ -11,7 +10,7 @@ class DateTimeComponent extends BaseComponent {
     if (_.isNil(this._value)) {
       return this.emptyValue();
     }
-    return typeof this._value === 'string' ? this._value.replace('T', ' ').split('.')[0] + ' UTC' : this._value;
+    return _.isString(this._value) ? this._value.replace('T', ' ').split('.')[0] + ' UTC' : this._value;
   }
 }
 

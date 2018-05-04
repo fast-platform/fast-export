@@ -1,4 +1,3 @@
-'use strict';
 import TextFieldComponent from './textfield';
 import TextAreaComponent from './textarea';
 import EmailComponent from './email';

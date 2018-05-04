@@ -1,5 +1,4 @@
-'use strict';
-import FormioExportUtils from 'formio-export/utils';
+import FormioExportUtils from '../../utils';
 import { style } from './style';
 
 export default (component) => {

@@ -1,4 +1,3 @@
-'use strict';
 import BaseComponent from '../base';
 
 class TableComponent extends BaseComponent {

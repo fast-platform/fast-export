@@ -1,4 +1,3 @@
-'use strict';
 import PanelComponent from '../panel';
 
 class FieldSetComponent extends PanelComponent {

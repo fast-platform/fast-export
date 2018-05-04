@@ -1,5 +1,3 @@
-'use strict';
-
 import toHtml from './html';
 import toPdf from './pdf';
 import toXlsx from './xlsx';

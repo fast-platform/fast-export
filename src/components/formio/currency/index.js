@@ -1,4 +1,3 @@
-'use strict';
 import NumberComponent from '../number';
 
 class CurrencyComponent extends NumberComponent {

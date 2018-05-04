@@ -1,4 +1,3 @@
-'use strict';
 import _ from 'lodash';
 import BaseComponent from '../base';
 
@@ -11,7 +10,7 @@ class DayComponent extends BaseComponent {
     if (_.isNil(this._value)) {
       return this.emptyValue();
     }
-    if (typeof this._value === 'string') {
+    if (_.isString(this._value)) {
       let parts = this._value.split('/');
 
       if (this.dayFirst) {

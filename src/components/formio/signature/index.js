@@ -1,4 +1,3 @@
-'use strict';
 import FileComponent from '../file';
 
 class SignatureComponent extends FileComponent {

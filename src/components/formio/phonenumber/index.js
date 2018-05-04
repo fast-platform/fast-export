@@ -1,4 +1,3 @@
-'use strict';
 import TextFieldComponent from '../textfield';
 
 class PhoneNumberComponent extends TextFieldComponent {

@@ -1,4 +1,3 @@
-'use strict';
 import ContainerComponent from '../container';
 
 class PanelComponent extends ContainerComponent {

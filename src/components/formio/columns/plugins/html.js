@@ -1,6 +1,5 @@
-'use strict';
 import _ from 'lodash';
-import FormioExportUtils from 'formio-export/utils';
+import FormioExportUtils from '../../../../utils';
 
 export default (element, component) => {
   if (component && component.columns) {

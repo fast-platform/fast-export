@@ -1,4 +1,3 @@
-'use strict';
 import _ from 'lodash';
 import FormioExportUtils from './utils';
 import FormioComponent from './components/formio';
@@ -15,7 +14,7 @@ import {
  *
  * @class FormioExport
  */
-export default class FormioExport {
+class FormioExport {
 
   /**
    * Creates an instance of FormioExport.
@@ -220,3 +219,5 @@ export default class FormioExport {
     });
   }
 };
+
+export default FormioExport;

@@ -1,4 +1,3 @@
-'use strict';
 import BaseComponent from '../base';
 import { toHtml } from './plugins';
 

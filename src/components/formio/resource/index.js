@@ -1,6 +1,5 @@
-'use strict';
 import _ from 'lodash';
-import FormioUtils from 'formiojs/utils';
+import FormioExportUtils from '../../../utils';
 import SelectComponent from '../select';
 
 class ResourceComponent extends SelectComponent {
@@ -24,8 +23,8 @@ class ResourceComponent extends SelectComponent {
     if (_.isNil(value)) {
       return this.emptyValue();
     }
-    if (typeof value === 'object') {
-      return FormioUtils.interpolate(this.template, { item: value });
+    if (_.isPlainObject(value)) {
+      return FormioExportUtils.interpolate(this.template, { item: value });
     }
     return value;
   }

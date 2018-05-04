@@ -1,6 +1,5 @@
-'use strict';
 import _ from 'lodash';
-import FormioUtils from 'formiojs/utils';
+import FormioExportUtils from '../../../utils';
 import BaseComponent from '../base';
 import { toHtml } from './plugins';
 
@@ -38,7 +37,7 @@ class SelectComponent extends BaseComponent {
         return value;
       case 'custom':
       case 'resource':
-        return FormioUtils.interpolate(this.template, { item: value }) || value;
+        return _.isPlainObject(value) ? FormioExportUtils.interpolate(this.template, { item: value }) : value;
       case 'values':
       case 'json':
         let valueProperty = this.valueProperty || 'value';
@@ -46,7 +45,7 @@ class SelectComponent extends BaseComponent {
           return o[valueProperty] === value;
         });
 
-        return item ? FormioUtils.interpolate(this.template, { item: item }) : value;
+        return _.isPlainObject(item) ? FormioExportUtils.interpolate(this.template, { item: item }) : value;
       default:
         return value;
     }

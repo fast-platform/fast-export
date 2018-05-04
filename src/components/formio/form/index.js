@@ -1,6 +1,4 @@
-'use strict';
 import ContainerComponent from '../container';
-
 import { toHtml, getDimensions } from './plugins';
 
 class FormComponent extends ContainerComponent {

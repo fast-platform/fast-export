@@ -1,5 +1,3 @@
-'use strict';
-
 export default (config = {}) => {
   return new Promise((resolve, reject) => {
     try {

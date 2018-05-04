@@ -1,4 +1,3 @@
-'use strict';
 import Html2Pdf from 'js-html2pdf';
 import FormioExportUtils from '../../utils';
 
