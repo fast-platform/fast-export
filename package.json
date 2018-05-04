@@ -1,6 +1,6 @@
 {
   "name": "formio-export",
-  "version": "0.2.6",
+  "version": "0.3.0",
   "description": "Formio Export Tools",
   "main": "lib/formio-export.js",
   "directories": {
@@ -46,7 +46,6 @@
     "yargs": "^11.0.0"
   },
   "dependencies": {
-    "formiojs": "^2.31.3",
     "js-html2pdf": "^1.1.4",
     "lodash": "^4.17.10"
   }
