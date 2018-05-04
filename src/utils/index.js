@@ -1,18 +1,18 @@
-'use strict';
 import _ from 'lodash';
 
-export default class FormioExportUtils {
+const FormioExportUtils = {
 
   /**
    * Verifies an object properties.
    *
-   * @static
-   * @param {Object} obj the object to verify
-   * @param {Object} props the properties to be verified
-   * @returns {Object} the verified object
-   * @memberof FormioExportUtils
+   * @param {Object} obj
+   *   The object to verify
+   * @param {Object} props
+   *   The properties to be verified
+   * @returns {Object}
+   *   The verified object
    */
-  static verifyProperties (obj, props) {
+  verifyProperties (obj, props) {
     // verify arguments
     props = _.isPlainObject(props) ? props : {};
     obj = _.isPlainObject(obj) ? obj : {};
@@ -45,9 +45,19 @@ export default class FormioExportUtils {
     });
     // return the verified object
     return obj;
-  }
+  },
 
-  static isOfType (obj, type) {
+  /**
+   * Check if an object is of a certain type
+   *
+   * @param {any} obj
+   *   The object to check
+   * @param {Function} type
+   *   The type (constructor) to compare to
+   * @returns {Boolean}
+   *   Is of same type
+   */
+  isOfType (obj, type) {
     switch (type) {
       case null:
         return _.isNull(obj);
@@ -80,54 +90,183 @@ export default class FormioExportUtils {
         return false;
 
     }
-  }
+  },
 
   /**
    * Check if an object is a valid Formio form
    *
-   * @static
-   * @param {Object} [obj={}] The object to check
-   * @returns {Boolean} Is valid Formio form
-   * @memberof FormioExportUtils
+   * @param {Object} [obj={}]
+   *   The object to check
+   * @returns {Boolean}
+   *   Is valid Formio form
    */
-  static isFormioForm (obj = {}) {
+  isFormioForm (obj = {}) {
     return _.isPlainObject(obj) && _.isArray(obj.components) && obj.display === 'form';
-  }
+  },
 
   /**
    * Check if an object is a valid Formio wizard
    *
-   * @static
-   * @param {Object} [obj={}] The object to check
-   * @returns {Boolean} Is valid Formio wizard
-   * @memberof FormioExportUtils
+   * @param {Object} [obj={}]
+   *   The object to check
+   * @returns {Boolean}
+   *   Is valid Formio wizard
    */
-  static isFormioWizard (obj = {}) {
+  isFormioWizard (obj = {}) {
     return _.isPlainObject(obj) && _.isArray(obj.components) && obj.display === 'wizard';
-  }
+  },
 
   /**
    * Check if an object is a valid Formio submission
    *
-   * @static
-   * @param {Object} [obj={}] The object to check
-   * @returns {Boolean} Is valid Formio submission
-   * @memberof FormioExportUtils
+   * @param {Object} [obj={}]
+   *   The object to check
+   * @returns {Boolean}
+   *   Is valid Formio submission
    */
-  static isFormioSubmission (obj = {}) {
-    return _.isPlainObject(obj) && _.isPlainObject(obj.data);
-  }
+  isFormioSubmission (obj = {}) {
+    return _.isPlainObject(obj) && _.isPlainObject(obj.data) && obj.hasOwnProperty('_id');
+  },
+
+  /**
+   * Get the value for a component key, in the given submission.
+   *
+   * @param {Object} data
+   *   A submission or data object to search.
+   * @param {String} key
+   *   A for components API key to search for.
+   */
+  getValue (data, key) {
+    const search = (obj) => {
+      if (_.isPlainObject(obj)) {
+        if (_.has(obj, key)) {
+          return obj[key];
+        }
+
+        let value = null;
+
+        _.forOwn(obj, (prop) => {
+          const result = search(prop);
+
+          if (!_.isNil(result)) {
+            value = result;
+            return false;
+          }
+          return true;
+        });
+        return value;
+      }
+      return null;
+    };
+
+    return FormioExportUtils.isFormioSubmission(data) ? search(data.data) : search(data);
+  },
+
+  /**
+   * Interpolate a string and add data replacements.
+   *
+   * @param string
+   *   The template string to use for interpolation
+   * @param data
+   *   The data object to interpolate
+   * @returns {XML|string|*|void}
+   */
+  interpolate (string, data) {
+    const templateSettings = {
+      evaluate: /\{%(.+?)%\}/g,
+      interpolate: /\{\{(.+?)\}\}/g,
+      escape: /\{\{\{(.+?)\}\}\}/g
+    };
+
+    try {
+      return _.template(string, templateSettings)(data);
+    } catch (err) {
+      console.warn('Error interpolating template', err, string, data);
+      return null;
+    }
+  },
+
+  /**
+   * Iterate through each component within a form.
+   *
+   * @param {Object} components
+   *   The components to iterate.
+   * @param {Function} fn
+   *   The iteration function to invoke for each component.
+   * @param {Boolean} includeAll
+   *   Whether or not to include layout components.
+   * @param {String} path
+   *   The current data path of the element. Example: data.user.firstName
+   * @param {Object} parent
+   *   The parent object.
+   */
+  eachComponent (components, fn, includeAll, path, parent) {
+    if (!components) return;
+    path = path || '';
+    components.forEach((component) => {
+      const hasColumns = component.columns && Array.isArray(component.columns);
+      const hasRows = component.rows && Array.isArray(component.rows);
+      const hasComps = component.components && Array.isArray(component.components);
+      let noRecurse = false;
+      const newPath = component.key ? (path ? (`${path}.${component.key}`) : component.key) : '';
+
+      // Keep track of parent references.
+      if (parent) {
+        // Ensure we don't create infinite JSON structures.
+        component.parent = _.clone(parent);
+        delete component.parent.components;
+        delete component.parent.componentMap;
+        delete component.parent.columns;
+        delete component.parent.rows;
+      }
+
+      if (includeAll || component.tree || (!hasColumns && !hasRows && !hasComps)) {
+        noRecurse = fn(component, newPath);
+      }
+
+      const subPath = () => {
+        if (
+          component.key &&
+          (
+            ['datagrid', 'container', 'editgrid'].includes(component.type) ||
+            component.tree
+          )
+        ) {
+          return newPath;
+        } else if (
+          component.key &&
+          component.type === 'form'
+        ) {
+          return `${newPath}.data`;
+        }
+        return path;
+      };
+
+      if (!noRecurse) {
+        if (hasColumns) {
+          component.columns.forEach((column) =>
+            FormioExportUtils.eachComponent(column.components, fn, includeAll, subPath(), parent ? component : null));
+        } else if (hasRows) {
+          component.rows.forEach((row) => row.forEach((column) =>
+            FormioExportUtils.eachComponent(column.components, fn, includeAll, subPath(), parent ? component : null)));
+        } else if (hasComps) {
+          FormioExportUtils.eachComponent(component.components, fn, includeAll, subPath(), parent ? component : null);
+        }
+      }
+    });
+  },
 
   /**
    * Creates a DOM element with optional attributes and children elements.
    *
-   * @static
-   * @param {String} tag The DOM element tag name
-   * @param {any} args The DOM element attributes and / or children nodes
-   * @returns {Element} The DOM element
-   * @memberof Html2PdfUtils
+   * @param {String} tag
+   *   The DOM element tag name
+   * @param {any} args
+   *   The DOM element attributes and / or children nodes
+   * @returns {Element}
+   *   The DOM element
    */
-  static createElement (tag, ...args) {
+  createElement (tag, ...args) {
     let el = document.createElement(tag);
     let attributes = {};
 
@@ -166,4 +305,6 @@ export default class FormioExportUtils {
     // return the created HTML element
     return el;
   }
-}
+};
+
+export default FormioExportUtils;
