@@ -26,6 +26,8 @@ npm install --save formio-export
 Creating a FormioExport instance
 
 ```javascript
+import FormioExport from 'formio-export';
+
 let exporter = new FormioExport(component, data, options);
 ```
 
