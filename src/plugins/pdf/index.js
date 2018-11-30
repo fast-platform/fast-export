@@ -1,23 +1,15 @@
-import Html2Pdf from 'js-html2pdf';
+import Html2Pdf from 'html2pdf.js';
 import FormioExportUtils from '../../utils';
 
-export default (config = {}) => {
-  return new Promise((resolve, reject) => {
-    try {
-      config = FormioExportUtils.verifyProperties(config, {
-        source: {
-          type: Element,
-          required: true
-        },
-        download: {
-          type: Boolean,
-          default: false
-        }
-      });
-      Html2Pdf.getPdf(config).then((pdf) => resolve(pdf));
-    } catch (error) {
-      console.error(error);
-      reject(error);
+const worker = Html2Pdf();
+
+export default (config = { pagebreak: { avoid: ['div'] } }) => {
+  config = FormioExportUtils.verifyProperties(config, {
+    pagebreak: {
+      type: Element,
+      required: true
     }
   });
+  return worker.set(config);
 };
+
